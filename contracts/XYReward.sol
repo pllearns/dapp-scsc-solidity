@@ -65,9 +65,7 @@ contract XyReward is Initializable, IXyRequester {
       @param responseFromBlock
       @param payee - who to pay
     */
-    function reward(bytes32 requestId, address payable payee, uint xyoBounty) public {
-        IPFSRequest memory q = requests[requestIndex[requestId]];
-       
+    function reward(bytes32 requestId, address payable payee, uint xyoBounty) public {       
         // stakingBlock and response data here?  This does not account for off-chain storage of request ids...yet 
         
         /** 
@@ -80,12 +78,5 @@ contract XyReward is Initializable, IXyRequester {
            SafeERC20.transfer(xyoToken, payee, xyoBounty);
           }
          */
-
-        if (q.weiPayment > 0) {
-            payee.transfer(q.weiPayment);
-        }
-        if (q.xyoPayment > 0) {
-            SafeERC20.transfer(xyoToken, payee, q.xyoPayment);
-        }
     }
 }
