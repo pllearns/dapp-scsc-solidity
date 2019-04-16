@@ -45,18 +45,18 @@ contract XyReward is Initializable, IXyRequester {
       @param beneficiary The destination address of the funds.
     */
 
-    function requestReward (
-        bytes32 requestId, 
-        uint xyoBounty, 
-        uint xyoReward,
-        uint weiReward, 
-        address payable beneficiary
-    )
-      public 
-      payable
-    {
+    // function requestReward (
+    //     bytes32 requestId, 
+    //     uint xyoBounty, 
+    //     uint xyoReward,
+    //     uint weiReward, 
+    //     address payable beneficiary
+    // )
+    //   public 
+    //   payable
+    // {
 
-    }
+    // }
 
 // This should also check the supporting data from the responses in the intersection block 
     /** 
@@ -65,10 +65,21 @@ contract XyReward is Initializable, IXyRequester {
       @param responseFromBlock
       @param payee - who to pay
     */
-    function reward(bytes32 requestId, address payable payee) internal {
+    function reward(bytes32 requestId, address payable payee, uint xyoBounty) public {
         IPFSRequest memory q = requests[requestIndex[requestId]];
        
-        // stakingBlock and response data here? 
+        // stakingBlock and response data here?  This does not account for off-chain storage of request ids...yet 
+        
+        /** 
+          bytes32 supportingData = XyStakingConsensus.supportingDataForRequest(requestId) 
+          uint stakingBlock = XyStakingConsensus.blockForRequest(requestId).stakingBlock
+          *** what would get responseData from the array?
+          if (supportingData === responseData) {
+           uint rewardId = XyStakingConsensus.withdrawRewardsRequest(xyoBounty) 
+           emit RewardClaimed(requestId, rewardId, payee, xyoBounty);
+           SafeERC20.transfer(xyoToken, payee, xyoBounty);
+          }
+         */
 
         if (q.weiPayment > 0) {
             payee.transfer(q.weiPayment);
