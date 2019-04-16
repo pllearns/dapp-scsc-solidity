@@ -61,11 +61,15 @@ contract XyReward is Initializable, IXyRequester {
 // This should also check the supporting data from the responses in the intersection block 
     /** 
       Will refund the asker prior to deleting the request
-      @param requestId - the requestId hash to be deleted
+      @param requestId - the requestId,
+      @param responseFromBlock
       @param payee - who to pay
     */
     function reward(bytes32 requestId, address payable payee) internal {
         IPFSRequest memory q = requests[requestIndex[requestId]];
+       
+        // stakingBlock and response data here? 
+
         if (q.weiPayment > 0) {
             payee.transfer(q.weiPayment);
         }
