@@ -211,7 +211,7 @@ contract XyStakingConsensus is Initializable, XyStakingModel {
         @param _requests the requests queried
         @param responses the response data of all the requests
         @return The weiMining for submitting the new block
-        Will revert if the request does not exist, or the withdraw request is more htna the staker stake
+        Will revert if the request does not exist, or the withdraw request is more than the staker stake
     */
     function handleResponses
     (
